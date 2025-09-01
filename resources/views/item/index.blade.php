@@ -1,17 +1,17 @@
 @extends('layouts.app')
-@section('pageTitle',"Category list")
+@section('pageTitle',"Item list")
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Category List</h1>
+    <h1 class="h3 mb-2 text-gray-800">Item List</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <a href="{{route('category.create')}}" class="btn btn-primary float-right">Add New</a>
+                <a href="{{route('item.create')}}" class="btn btn-primary float-right">Add New</a>
             </h6>
-            <form action="{{route('category.index')}}" method="get">
+            <form action="{{route('item.index')}}" method="get">
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="">Name</label>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-sm-4 mt-4 pt-1">
                         <button type="submit" class="btn btn-primary">Search</button>
-                        <a href="{{route('category.index')}}" class="btn btn-success">Reset</a>
+                        <a href="{{route('item.index')}}" class="btn btn-success">Reset</a>
                     </div>
                 </div>
             </form>
@@ -39,8 +39,9 @@
                         <tr>
                             <th>#SL</th>
                             <th>Name</th>
+                            <th>Category</th>
+                            <th>Tags</th>
                             <th>Description</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,22 +50,21 @@
                         @forelse ($datas as $data)
                             <tr>
                                 <td>{{$loop->index + 1}}</td>
-                                <td>{{$data->name}} ({{$data->items->count()}})</td>
+                                <td>{{$data->name}}</td>
+                                <td>{{$data->categories?->name}}</td>
+                                <td>{{$data->tags?->pluck('name')}}</td>
                                 <td>{{$data->description}}</td>
-                                <td>{{$data->is_active?"Active":"Inactive"}}</td>
                                 <td>
-                                    <a href="{{route('category.edit',$data->id)}}" class="btn btn-info">
+                                    <a href="{{route('item.edit',$data->id)}}" class="btn btn-info">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    @if($data->items->count() <= 0)
-                                        <a href="#" class="btn btn-danger" onclick="$('#delete{{$data->id}}').submit()">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                        <form id="delete{{$data->id}}" action="{{route('category.destroy',$data->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                    @endif
+                                    <a href="#" class="btn btn-danger" onclick="$('#delete{{$data->id}}').submit()">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <form id="delete{{$data->id}}" action="{{route('item.destroy',$data->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
                                 </td>
                             </tr>
                         @empty

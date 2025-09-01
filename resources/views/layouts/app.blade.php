@@ -49,6 +49,11 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Category</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('item.index')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Item</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
