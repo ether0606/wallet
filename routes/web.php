@@ -17,7 +17,10 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+Route::get('/service', function () {
+    return view('service');
+})->name('service');
 
 Route::resource('category', CategoryController::class);
 Route::resource('item', ItemController::class);
